@@ -1,37 +1,37 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    private Pokedeck deck;
     private Actions actions;
 
-    public Menu(Pokedeck deck) {
-        actions = new Actions(deck);
+    public Menu() {
+        actions = new Actions();
         System.out.println("Welcome to your Pokedeck !");
         this.displayChoices();
     }
 
     private void displayChoices() {
+        System.out.println("----------------------------------------------------------");
         // Displays all the actions and executes the one chosen
         Scanner input = new Scanner(System.in);
 
-        System.out.println("----------------------------------------------------------");
         System.out.println("Please enter a number to execute one of the actions below:");
         System.out.println("1 - Display your cards");
         System.out.println("2 - Add a new card ");
         System.out.println("3 - Edit a card ");
         System.out.println("4 - Remove a card ");
+        System.out.println("5 - Search a card");
+        System.out.println("6 - Save");
+        System.out.println("7 - Exit");
 
         int action = input.nextInt();
-
         System.out.println("----------------------------------------------------------");
 
         this.executeAction(action);
     }
 
     private void quickMenu() {
-        Scanner input = new Scanner(System.in);
         System.out.println("----------------------------------------------------------");
+        Scanner input = new Scanner(System.in);
         System.out.println("Enter a number to execute an action, or enter 0 to have all your actions displayed again");
 
         int action = input.nextInt();
@@ -47,7 +47,7 @@ public class Menu {
     }
 
     private void executeAction(int action) {
-        while(action != 1 && action != 2 && action != 3 && action != 4) {
+        while(action < 1 || action > 7) {
             System.out.println("This action does not exist");
             Scanner input = new Scanner(System.in);
             action = input.nextInt();
@@ -60,11 +60,19 @@ public class Menu {
                 actions.addCard();
                 break;
             case 3:
-                actions.removeCard();
-                break;
-            case 4:
                 actions.editCard();
                 break;
+            case 4:
+                actions.removeCard();
+                break;
+            case 5:
+                actions.searchCard();
+                break;
+            case 6:
+                 actions.save();
+                 break;
+            case 7:
+                System.exit(0);
         }
         this.quickMenu();
     }
